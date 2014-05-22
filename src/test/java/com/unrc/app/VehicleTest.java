@@ -28,18 +28,22 @@ public class VehicleTest {
     @Test
     public void shouldValidateMandatoryFields() {
         Vehicle vehicle = new Vehicle();
+        Car car =new Car();
+        Truck truck = new Truck();
         User user = new User();
 	the(user).shouldNotBe("valid");
 	the(vehicle).shouldNotBe("valid");
-        the(vehicle.errors().get("marca")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("modelo")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("patente")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("color")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("tipo")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("id_dueno")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("mark")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("model")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("patents")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("id_user")).shouldBeEqual("value is missing");
 
         user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        vehicle.set("marca","bmw","modelo","2014","patente","kff911","color","negro","tipo","carro","id_dueno","1");
+        vehicle.set("mark","bmw","model","2014","patents","kff911","id_user","1");
+        vehicle.set("mark","scania","model","2012","patents","kas731","id_user","1");
+        car.set("patents","kff911","isCoupe","false");
+        truck.set("patents","kas731","capacity","1000");
+
         // Everything is good:
         the(user).shouldBe("valid");
         the(vehicle).shouldBe("valid");
