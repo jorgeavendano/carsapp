@@ -13,7 +13,7 @@ public class VehicleTest {
 
     @Before
     public void before() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
         System.out.println("VehicleTest setup");
         Base.openTransaction();
     }
@@ -21,7 +21,6 @@ public class VehicleTest {
     @After
     public void after() {
         System.out.println("Vehicle tearDown");
-        Base.rollbackTransaction();
         Base.close();
     }
 
@@ -39,9 +38,11 @@ public class VehicleTest {
         the(vehicle.errors().get("id_dueno")).shouldBeEqual("value is missing");
 
         user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        vehicle.set("marca","bmw","modelo","2014","patente","kff911","color","negro","tipo","carro","id_dueno","1");
+        vehicle.set("marca","bmw","modelo","2014","patente",54343,"color","negro","tipo","carro","id_dueno","1");
         // Everything is good:
+        
         the(user).shouldBe("valid");
         the(vehicle).shouldBe("valid");
+        
     }
 }
