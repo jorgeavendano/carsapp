@@ -141,7 +141,7 @@ public class App {
             tmp.set("patente_vehiculo", req.queryParams("patente"));
             tmp.saveIt();
 
-            return html.IngresarPost();
+            return html.IngresarPost(currentUser);
         });
         post("/getpostbysearch", (req, resp) -> {
 
