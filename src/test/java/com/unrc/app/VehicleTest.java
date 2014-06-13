@@ -1,7 +1,6 @@
 package com.unrc.app;
 
 import com.unrc.app.models.User;
-import com.unrc.app.models.Car;
 import com.unrc.app.models.Truck;
 import com.unrc.app.models.Vehicle;
 import org.javalite.activejdbc.Base;
@@ -29,14 +28,12 @@ public class VehicleTest {
     @Test
     public void shouldValidateMandatoryFields() {
         Vehicle vehicle = new Vehicle();
-        Car car =new Car();
-        Truck truck = new Truck();
         User user = new User();
 	the(user).shouldNotBe("valid");
 	the(vehicle).shouldNotBe("valid");
-        the(vehicle.errors().get("mark")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("model")).shouldBeEqual("value is missing");
-        the(vehicle.errors().get("patents")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("marca")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("modelo")).shouldBeEqual("value is missing");
+        the(vehicle.errors().get("patente")).shouldBeEqual("value is missing");
         the(vehicle.errors().get("id_user")).shouldBeEqual("value is missing");
 
         user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
