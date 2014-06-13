@@ -33,11 +33,11 @@ public class Html {
 
         return s;
     }
-    public String getPostBySearch(String post,String v) {
+    public String getPostBySearch(String post,String v,String ans) {
         String s = "<br>POST <br><br><form action=\"/getpostbysearch\" method=\"post\">";
         s = s + " <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
-        s = s + "<tr> <td>DUENO</td><td>CIUDAD</td> <td>PATENTE</td><td>DESCRIPCION</td> </tr>";
+        s = s + "<tr> <td>DUENO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
         String[] tmp = post.split("}");
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<td>" + tmp[i] + "</td>";
@@ -46,14 +46,62 @@ public class Html {
         
         s = s+"</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
         s = s + "VEHICULO <br>";
-        s = s + "<tr> <td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Dueño</td> <td>ciudad</td><td>Pasajeros</td><td>km</td><td>carga</td><</tr>";
+        s = s + "<tr> <td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td>  <td>isCoupe</td><td>cc</td><td>carga</td><</tr>";
         tmp = v.split(",");
         for (int i = 1; i < tmp.length; i++) {
             s = s + "<td>" + tmp[i] + "</td>";
 
         }
         s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"coment\"></TEXTAREA <BR><INPUT TYPE =\"submit\"><form>";
+        s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+        s = s + "Preguntas y respuestas <br>";
+        s = s + "<tr> <td>Usuario</td> <td>Pregunta</td> <td>resuesta</td> </tr>";
+        tmp = ans.split(",");
+        for (int i = 1; i < tmp.length; i++) {
+                    String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+        }
+        return s;
+    }
+    public String getOwnPostBySearch(String post,String v,String ans) {
+        String s = "<br>POST <br><br><form action=\"/answerpost\" method=\"post\">";
+        s = s + " <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+         s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
+        s = s + "<tr> <td>DUENO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
+        String[] tmp = post.split("}");
+        for (int i = 0; i < tmp.length; i++) {
+            s = s + "<td>" + tmp[i] + "</td>";
+
+        }
         
+        s = s+"</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+        s = s + "VEHICULO <br>";
+        s = s + "<tr> <td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td>  <td>isCoupe</td><td>cc</td><td>carga</td><</tr>";
+        tmp = v.split(",");
+        for (int i = 1; i < tmp.length; i++) {
+            s = s + "<td>" + tmp[i] + "</td>";
+
+        }
+        s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+        s = s + "Preguntas y respuestas <br>";
+        s = s + "<tr> <td>Usuario</td><td>num.Pregunta</td> <td>Pregunta</td> <td>resuesta</td> </tr>";
+        tmp = ans.split(",");
+        for (int i = 1; i < tmp.length; i++) {
+                    String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+        }
+        s+="responder preguntas";
+         s = s + "pregunta: <input type=\"text\" name=\"question\" size=\"12\" maxlength=\"15\">"; 
+        s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"responder\"></TEXTAREA <BR><INPUT TYPE =\"submit\" value = \"ingresar\"><form>";
+       
         return s;
     }
     public String getPostBy(String post) {
@@ -242,6 +290,26 @@ public class Html {
 //            
 s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
 
+        return s;
+    }public String getOwnPost(String post) {
+        String[] tmp = post.split(",");
+        System.out.println(tmp[0]);
+        String s = "<br>POST<br><br><form action=\"/viewpost\" method=\"post\">";
+         s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
+        s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
+        for (int i = 0; i < tmp.length; i++) {
+            s = s + "<tr>";
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+//            
+        }
+        s+="</table>";
+        s = s + " <br><br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"> ";
+        s+="</form>";
         return s;
     }
 

@@ -27,7 +27,7 @@ public class App {
         System.out.println("hi!");
         Html html = new Html();
         Spark.before((request, response) -> {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "");
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
 
         });
         Spark.after((request, response) -> {
@@ -112,7 +112,7 @@ public class App {
 
                 }
 
-                return html.getPost(vh);
+                return html.getOwnPost(vh);
             } else {
                 return "no hay post registrados";
             }
@@ -141,6 +141,18 @@ public class App {
             return " se envio la pregunta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
 
         });
+        post("/answerpost", (req, resp) -> {
+
+            resp.type("text/html");
+            Question q = Question.findFirst("id_question = ?", req.queryParams("question"));
+            if (q.equals(null)||req.queryParams("responder") == null || req.queryParams("responder").equals("")) {
+                return " no se guardo correctamente la respuesta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+            }
+            System.out.println(req.queryParams("coment"));
+            Answer.createAnswer(currentUser, q.getInteger("id_question"), req.queryParams("responder"));
+            return " se guardo la respuesta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+
+        });
         get("/post", (req, resp) -> {
 
             resp.type("text/html");
@@ -166,10 +178,46 @@ public class App {
 
             Vehicle tmp = Vehicle.findFirst("patent = ?", post.getString("patent"));
 
-            String vl = tmp.get("patent") + "," + tmp.get("mark") + "," + tmp.get("model") + "," + tmp.get("color") + "," + tmp.get("tipo") + "," + tmp.get("id_user") + ","  + tmp.get("isCoupe") + "," + tmp.get("cc") + "," + tmp.get("capacity");
-
-            return html.getPostBySearch(own, vl);
+            String vl = tmp.get("patent") + "," + tmp.get("mark") + "," + tmp.get("model") + "," + tmp.get("color") + "," + tmp.get("tipo") + "," + tmp.get("isCoupe") + "," + tmp.get("cc") + "," + tmp.get("capacity");
+            List<Question> ques = Question.findAll();
+            String q = "";
+            for (int i = 0; i < ques.size(); i++) {
+                q+= User.findFirst("id_user = ?", ques.get(i).getInteger("id_user")).getString("first_name")+"}" + ques.get(i).getString("description")+"}";
+                Answer ans = Answer.findFirst("id_question = ?", ques.get(i).get("id_question"));
+                if( ans!=null){
+                   q+= ans.getString("description")+",";
+                }else q+="-"+",";
+                        
+                
+            }
+            return html.getPostBySearch(own, vl,q);
         });
+post("/viewpost", (req, resp) -> {
+
+            resp.type("text/html");
+            Post post = Post.findFirst("id_post = ?", req.queryParams("id_post"));
+            currentPost = post;
+            String own = "";
+            User name = User.findFirst("id_user = ?", post.getString("id_user"));
+            own = own + name.getString("first_name") + "}"  + post.getString("patent") + "}" + post.getString("description");
+
+            Vehicle tmp = Vehicle.findFirst("patent = ?", post.getString("patent"));
+
+            String vl = tmp.get("patent") + "," + tmp.get("mark") + "," + tmp.get("model") + "," + tmp.get("color") + "," + tmp.get("tipo") + "," + tmp.get("isCoupe") + "," + tmp.get("cc") + "," + tmp.get("capacity");
+            List<Question> ques = Question.findAll();
+            String q = "";
+            for (int i = 0; i < ques.size(); i++) {
+                q+= User.findFirst("id_user = ?", ques.get(i).getInteger("id_user")).getString("first_name")+"}"+ ques.get(i).getString("id_question")+"}" + ques.get(i).getString("description")+"}";
+                Answer ans = Answer.findFirst("id_question = ?", ques.get(i).get("id_question"));
+                if( ans!=null){
+                   q+= ans.getString("description")+",";
+                }else q+="-"+",";
+                        
+                
+            }
+            return html.getOwnPostBySearch(own, vl,q);
+        });
+
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Questions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
@@ -216,15 +264,15 @@ public class App {
         post("/insertvehicle", (req, resp) -> {
             resp.type("text/html");
             if (req.queryParams("tipo").equals("auto")) {
-                Vehicle.createVehicle(req.queryParams("marca"), req.queryParams("modelo"), req.queryParams("patente"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), 0, req.queryParams("isCoupe"), 0); 
+                Vehicle.createVehicle(req.queryParams("patente"), req.queryParams("marca"), req.queryParams("modelo"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), 0, req.queryParams("isCoupe"), 0); 
             }
             else 
                 if (req.queryParams("tipo").equals("camion")) {
-                    Vehicle.createVehicle(req.queryParams("marca"), req.queryParams("modelo"), req.queryParams("patente"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), 0,"-", parseInt(req.queryParams("Capacity")));
+                    Vehicle.createVehicle(req.queryParams("patente"), req.queryParams("marca"), req.queryParams("modelo"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), 0,"-", parseInt(req.queryParams("Capacity")));
                 } 
                 else  
                     if (req.queryParams("tipo").equals("moto")) {
-                        Vehicle.createVehicle(req.queryParams("marca"), req.queryParams("modelo"), req.queryParams("patente"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), parseInt(req.queryParams("CC")),"-", 0);
+                        Vehicle.createVehicle(req.queryParams("patente"), req.queryParams("marca"), req.queryParams("modelo"), currentUser.getInteger("id_user"), req.queryParams("color"), req.queryParams("tipo"), parseInt(req.queryParams("CC")),"-", 0);
                 }
             
             return html.IngresarAutomovil();
