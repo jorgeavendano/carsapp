@@ -1,7 +1,6 @@
 package com.unrc.app;
 
 import com.unrc.app.models.User;
-import com.unrc.app.models.Truck;
 import com.unrc.app.models.Vehicle;
 import org.javalite.activejdbc.Base;
 import org.junit.After;

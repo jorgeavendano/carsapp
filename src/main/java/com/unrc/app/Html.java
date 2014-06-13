@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.unrc.app;
 
 import com.unrc.app.models.User;
 
-/**
- *
- * @author jorgea
- */
 public class Html {
 
     public String getAllUsers(String users) {
@@ -18,7 +9,7 @@ public class Html {
         s = s + "<br><br>";
         s = s + "<select name=\"Usuarios\" size=\"4\">";
         String[] tmp = users.split(",");
-        for (int i = 0; i < tmp.length - 1; i++) {
+        for (int i = 0; i < tmp.length ; i++) {
             s = s + "<option value=" + "\"" + i + "\"" + ">" + tmp[i];
 
         }
@@ -68,7 +59,7 @@ public class Html {
     public String getPostBy(String post) {
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
         s = s + "POST<br><br>";
-        s = s + "<tr> <td>DUENO</td><td>CIUDAD</td> <td>PATENTE</td><td>DESCRIPCION</td> </tr>";
+        s = s + "<tr> <td>USUARIO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
         String[] tmp = post.split("}");
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<td>" + tmp[i] + "</td>";
@@ -82,7 +73,7 @@ public class Html {
     public String getVehicleBy(String vehicle) {
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
         s = s + "VEHICULO<br><br>";
-        s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Dueño</td> <td>ciudad</td><td>Pasajeros</td><td>km</td><td>carga</td><</tr>";
+        s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Due&#241o</td><td>Es Coupe?</td><td>CC</td><td>Capacidad</td> </tr>";
         String[] tmp = vehicle.split("}");
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<td>" + tmp[i] + "</td>";
@@ -112,6 +103,7 @@ public class Html {
         s = s + "Ciudad: <input type=\"text\" name=\"ciudad\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Cod_Postal: <input type=\"text\" name=\"codigo_postal\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Direccion: <input type=\"text\" name=\"direccion\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s + "Numero: <input type=\"text\" name=\"num\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
         s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
@@ -121,10 +113,7 @@ public class Html {
 
     public String IngresarPost(User user) {
         String s = "<br>INGRESAR UN NUEVO POST <br><br><form action=\"/insertpost\" method=\"post\">";
-        s = s + "Id Usuario: <input type=\"text\" name=\"id_user\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"25\" maxlength=\"50\"><br><br>";
-        
-        
         s = s + "Patente Vehiculo: <input type=\"text\" name=\"patente\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
@@ -135,9 +124,9 @@ public class Html {
 
     public String IngresarRespuesta() {
         String s = "<br>INGRESAR UN NUEVA RESPUESTA <br><br><form action=\"/insertanswer\" method=\"post\" enctype=\"text/plain\">";
-        s = s + "Id Pregunta: <input type=\"text\" name=\"id_askdd\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"255\" maxlength=\"200\"><br><br>";
         s = s + "id usuario: <input type=\"text\" name=\"id_user\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s + "id pregunta: <input type=\"text\" name=\"id_pregunta\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
         s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
@@ -164,10 +153,9 @@ public class Html {
         s = s + "Patente: <input type=\"text\" name=\"patente\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Color: <input type=\"text\" name=\"color\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Tipo: <input type=\"text\" name=\"tipo\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "Pasajeros(carro): <input type=\"text\" name=\"pasajeros\" size=\"25\" maxlength=\"50\"><br><br>";
-         s = s + "Km(moto): <input type=\"text\" name=\"km\" size=\"25\" maxlength=\"50\"><br><br>";
-          s = s +"Carga(camion):                <input type=\"text\" name=\"carga\" size=\"25\" maxlength=\"50\"><br><br>";
-       s = s + "ciudad(donde esta el vehiculo): <input type=\"text\" name=\"ciudad\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s + "Es coupe?(Auto): <input type=\"text\" name=\"isCoupe\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s + "CC(moto): <input type=\"text\" name=\"CC\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s +"Capacidad(camion):<input type=\"text\" name=\"Capacity\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
         s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
@@ -182,7 +170,7 @@ public class Html {
         System.out.println(tmp[0]);
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
         s = s + "VEHICULOS REGISTRADOS<br><br>";
-        s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Dueño</td><td>ciudad</td><td>Pasajeros</td><td>km</td><td>carga</td> </tr>";
+        s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Due&#241o</td><td>Es Coupe?</td><td>CC</td><td>Capacidad</td> </tr>";
         for (int i = 0; i < tmp.length ; i++) {
             s = s + "<tr>";
             String[] tm = tmp[i].split("}");
@@ -262,7 +250,7 @@ s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"jav
         System.out.println(tmp[0]);
         String s = "<br>POST<br><br><form action=\"/post\" method=\"post\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
-        s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUENO</td> <td>PATENTE</td> </tr>";
+        s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<tr>";
             String[] tm = tmp[i].split("}");
@@ -282,7 +270,7 @@ s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"jav
     public String loginUsuario() {
         String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><div align=\"center\">CARSAPP <br><br>";
         s = s + "Email: <input type=\" type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "Contraseña: <input type=\"text\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
+        s = s + "Contrase&#241a: <input type=\"text\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\">";
         s = s + "</form>";
         return s;
@@ -294,7 +282,7 @@ s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"jav
         page = page + "<br><br><div align=\"center\">CARS APP<br><br>";
 
         page += "<a href=\"http://localhost:4567/insertpost\" onclick=\"myJsFunc();\"> * Crear Post </a><br>";
-        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehículos </a><br>";
+        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehiculos </a><br>";
         page += "<a href=\"http://localhost:4567/insertcity\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br>";
         page += "<a href=\"http://localhost:4567/ownvehicles\" onclick=\"myJsFunc();\">* Ver mis Vehiculos </a><br>";
         page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos </a><br>";

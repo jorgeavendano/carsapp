@@ -1,7 +1,7 @@
 package com.unrc.app;
 
 import com.unrc.app.models.User;
-import com.unrc.app.models.City;
+import com.unrc.app.models.Address;
 
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -29,7 +29,7 @@ public class CityTest{
     @Test
     public void shouldValidateMandatoryFields(){
         User user = new User();
-        City adress = new City();
+        Address adress = new Address();
         the(user).shouldNotBe("valid");
         the(adress).shouldNotBe("valid");
         the(adress.errors().get("provincia")).shouldBeEqual("value is missing");
