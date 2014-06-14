@@ -443,7 +443,7 @@ public class App {
                 return html.getFailLogin();
         });
         
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Login~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Contacto Admin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         
         get("/admincontact", (req, resp) -> {
             if(connectionUser==true){
@@ -457,8 +457,6 @@ public class App {
         post("/admincontact", (req, resp) -> {
             if(connectionUser==true){
                 resp.type("text/html");
-                System.out.println("asdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaa");
-                System.out.println(req.queryParams("mensaje"));
                 Message.createMessage(currentUser.getInteger("id_user"), req.queryParams("mensaje"));
                 return html.contactAdmin();
             }
