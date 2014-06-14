@@ -11,7 +11,7 @@ public class UsersAddress extends Model {
 	return (findFirst("id_user = ? and id_address= ?",  id_user,id_address));
     }
 
-    public static UsersAddress UsersAddress(int id_user, int id_address){
+    public static UsersAddress createUsersAddress(int id_user, int id_address){
         UsersAddress answer =create("id_user",id_user, "id_address",id_address);
         answer.saveIt();
         return findByUsersAddress(id_user,id_address);

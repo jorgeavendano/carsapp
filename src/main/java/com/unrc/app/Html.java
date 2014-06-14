@@ -152,7 +152,7 @@ public class Html {
     }
 
     public String IngresarCiudad() {
-        String s = "<br>INGRESAR UNA CIUDAD <br><br><form action=\"/insertcity\" method=\"post\">";
+        String s = "<br>INGRESAR UNA CIUDAD <br><br><form action=\"/insertaddress\" method=\"post\">";
         s = s + "Provincia: <input type=\"text\" name=\"provincia\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Ciudad: <input type=\"text\" name=\"ciudad\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Cod_Postal: <input type=\"text\" name=\"codigo_postal\" size=\"25\" maxlength=\"50\"><br><br>";
@@ -236,16 +236,36 @@ public class Html {
 
         return s;
     }
+    
+        public String getOwnAddress(String ciudades) {
+        String[] tmp = ciudades.split(",");
+        String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
+        s = s + "VEHICULOS REGISTRADOS<br><br>";
+        s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
+        for (int i = 0; i < tmp.length ; i++) {
+            s = s + "<tr>";
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+          
+        }
+        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+
+        return s;
+    }
 
     public String getCities(String cities) {
         String[] tmp = cities.split(",");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
         s = s + "CIUDADES REGISTRADOS<br><br>";
-        s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> </tr>";
-        for (int i = 0; i < tmp.length - 1; i++) {
+        s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
+        for (int i = 0; i < tmp.length; i++) {
             s = s + "<tr>";
-            String[] tm = tmp[i].split(" ");
-            for (int j = 0; j < 4; j++) {
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j<tm.length; j++) {
                 s = s + "<td>" + tm[j] + "</td>";
 
             }
@@ -337,6 +357,20 @@ public class Html {
         s+="</form>";
         return s;
     }
+    
+    public String contactAdmin(){
+        String s ="<html>"; 
+        s+="<head> <title>CarsApp</title> </head> <body> <div align=center>";
+        s+="<h1>ContactarAdministrador</h1>";
+        s+="<img src=\"http://techywhack.com/wp-content/uploads/2012/11/contact-us.png\" style='background-repeat:no-repeat;' />";
+        s+="<form action=\"/admincontact\"method=\"post\">";
+        s+="Mensaje:<br>";
+        s+="<textarea name=\"mensaje\" cols=\"50\" rows=\"5\"></textarea>";
+        s+="<br> <br><input type=\"submit\"  value=\"ingresar\">";
+        s = s + "<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"";
+        s+="</form></div></body> </html>";
+        return s;
+    }
 
     public String loginUsuario() {
         String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><div align=\"center\">CARSAPP <br><br>";
@@ -353,13 +387,14 @@ public class Html {
         page = page + "<br><br><div align=\"center\">CARS APP<br><br>";
 
         page += "<a href=\"http://localhost:4567/insertpost\" onclick=\"myJsFunc();\"> * Crear Post </a><br>";
-        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehiculos </a><br>";
-        page += "<a href=\"http://localhost:4567/insertaddress\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br>";
-        page += "<a href=\"http://localhost:4567/ownvehicles\" onclick=\"myJsFunc();\">* Ver mis Vehiculos </a><br>";
-        page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos </a><br>";
         page += "<a href=\"http://localhost:4567/ownpost\" onclick=\"myJsFunc();\">* Ver mis Posts </a><br>";
+        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehiculos </a><br>";
+        page += "<a href=\"http://localhost:4567/ownvehicles\" onclick=\"myJsFunc();\">* Ver mis Vehiculos </a><br>";
+        page += "<a href=\"http://localhost:4567/insertaddress\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br>";
+        page += "<a href=\"http://localhost:4567/ownaddress\" onclick=\"myJsFunc();\">* Ver mis Direcciones </a><br>";
+        page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos Los Posts </a><br>";
         page += "<a href=\"http://localhost:4567/admincontact\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
-        page += "<a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"></form></a>";
+        page += "<br><br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"></form></a>";
 
         return page;
     }
