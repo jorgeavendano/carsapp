@@ -13,8 +13,9 @@ public class Html {
 
         }
         s+="<br><br></select><br><br>";
-        s+="Eliminar usuario (id) : <input type=\"text\" name=\"id_user\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"delete\"><br><br> ";
-        s = s + "<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s+="<html><body><body background=\"http://img191.imageshack.us/img191/8859/set3.gif\" style='background-repeat:no-repeat;' /> ";
+        s+="<br><br>Eliminar usuario (id) : <input type=\"text\" name=\"id_user\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"delete\"><br><br> ";
+        s = s + "<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form></body></html>";
 
         return s;
     }
@@ -373,11 +374,12 @@ public class Html {
     }
 
     public String loginUsuario() {
-        String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><div align=\"center\">CARSAPP <br><br>";
-        s = s + "Email: <input type=\" type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
+        String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><font size=\"7\"><div align=\"center\"><b><u>CARSAPP </font><br><br>";
+        s = s + "<br><br>Email: <input type=\" type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Contrase&#241a: <input type=\"text\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "<br><br><input type=\"submit\"  value=\"ingresar\">";
-        s = s + "</form>";
+        s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"></b></u>";
+        s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
+        s = s + "</form></body></html>";
         return s;
     }
 
