@@ -54,7 +54,7 @@ public class App {
                 List<User> u = User.findAll();
                 String users = "";
                 for (int i = 0; i < u.size(); i++) {
-                    users = users + u.get(i).getString("id_user") + " " + u.get(i).getString("first_name") + " " + u.get(i).getString("last_name") + ",";
+                    users = users + u.get(i).getString("id_user")+ " | " + " " + u.get(i).getString("first_name") + " " + u.get(i).getString("last_name")+ " | "+ " " + u.get(i).getString("email") + ",";
                 }
                 return html.getAllUsers(users);
              }
