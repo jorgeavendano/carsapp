@@ -13,15 +13,15 @@ public class Html {
 
         }
         s+="<br><br></select><br><br>";
-        s+="<html><body><body background=\"http://img191.imageshack.us/img191/8859/set3.gif\" style='background-repeat:no-repeat;' /> ";
+        s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
         s+="<br><br>Eliminar usuario (id) : <input type=\"text\" name=\"id_user\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"delete\"><br><br> ";
-        s = s + "<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form></body></html>";
+        s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"></form></body></html>";
 
         return s;
     }
 
     public String getFailLogin() {
-       String s ="<br> Acceso denegado <br>";
+       String s ="<br><font size=\"7\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /><div align=\"center\"> Acceso denegado <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"></form></body></html>";
     return s;
     }
     
@@ -29,20 +29,19 @@ public class Html {
     
     public String getUserBy(String user) {
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
-        s = s + "Usuario<br><br>";
+        s = s + "<div align=\"center\">Usuario<br><br>";
         s = s + "<tr> <td>Nombre</td><td>Apellido</td> <td>Email</td> </tr>";
         String[] tmp = user.split(",");
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<td>" + tmp[i] + "</td>";
 
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
         public String getPostBySearch(String post,String v,String ans) {
-            String s = "<br>POST <br><br><form action=\"/getpostbysearch\" method=\"post\">";
-            s = s + " <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+            String s = "<br><div align=\"center\">POST <br><br><form action=\"/getpostbysearch\" method=\"post\">";
              s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
             s = s + "<tr> <td>DUENO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
             String[] tmp = post.split("}");
@@ -70,13 +69,14 @@ public class Html {
                     s = s + "<td>" + tm[j] + "</td>";
 
                 }
-                s = s + "</tr>";
+                
+                s = s + "<form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></tr>";
             }
+            s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
             return s;
     }
     public String getOwnPostBySearch(String post,String v,String ans) {
         String s = "<br>POST <br><br><form action=\"/answerpost\" method=\"post\">";
-        s = s + " <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
         s = s + "<tr> <td>DUENO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
         String[] tmp = post.split("}");
@@ -108,7 +108,7 @@ public class Html {
         s+="responder preguntas";
          s = s + "pregunta: <input type=\"text\" name=\"question\" size=\"12\" maxlength=\"15\">"; 
         s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"responder\"></TEXTAREA <BR><INPUT TYPE =\"submit\" value = \"ingresar\"><form>";
-       
+        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
     public String getPostBy(String post) {
@@ -120,8 +120,7 @@ public class Html {
             s = s + "<td>" + tmp[i] + "</td>";
 
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
-
+        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
 
@@ -134,34 +133,34 @@ public class Html {
             s = s + "<td>" + tmp[i] + "</td>";
 
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
 
     public String IngresarUsuario() {
-        String s = "<br>INGRESAR UN NUEVO USUARIO <br><br><form action=\"/insertuser\" method=\"post\">";
+        String s = "<br><div align=\"center\">INGRESAR UN NUEVO USUARIO <br><br><form action=\"/insertuser\" method=\"post\">";
         s = s + "Nombre: <input type=\"text\" name=\"first_name\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Apellido: <input type=\"text\" name=\"last_name\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Email: <input type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
          s = s + "Contrasena: <input type=\"text\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
+        s = s + "<br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\"><br><br>";
         s = s + "</form>";
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
 
     public String IngresarCiudad() {
-        String s = "<br>INGRESAR UNA CIUDAD <br><br><form action=\"/insertaddress\" method=\"post\">";
+        String s = "<br><div align=\"center\">INGRESAR UNA CIUDAD <br><br><br><form action=\"/insertaddress\" method=\"post\">";
         s = s + "Provincia: <input type=\"text\" name=\"provincia\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Ciudad: <input type=\"text\" name=\"ciudad\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Cod_Postal: <input type=\"text\" name=\"codigo_postal\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Direccion: <input type=\"text\" name=\"direccion\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Numero: <input type=\"text\" name=\"num\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
+        s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -171,37 +170,38 @@ public class Html {
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Patente Vehiculo: <input type=\"text\" name=\"patente\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
-        s = s + " <br><br><<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + "<form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html>";
 
         return s;
     }
 
     public String IngresarRespuesta() {
-        String s = "<br>INGRESAR UN NUEVA RESPUESTA <br><br><form action=\"/insertanswer\" method=\"post\" enctype=\"text/plain\">";
+        String s = "<br><div align=\"center\">INGRESAR UN NUEVA RESPUESTA <br><br><form action=\"/insertanswer\" method=\"post\" enctype=\"text/plain\">";
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"255\" maxlength=\"200\"><br><br>";
         s = s + "id usuario: <input type=\"text\" name=\"id_user\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "id pregunta: <input type=\"text\" name=\"id_pregunta\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
 
     public String IngresarPregunta() {
-        String s = "<br>INGRESAR UN NUEVA PREGUNTA <br><br><form action=\"/insertanswer\" method=\"post\">";
+        String s = "<br><div align=\"center\">INGRESAR UN NUEVA PREGUNTA <br><br><form action=\"/insertanswer\" method=\"post\">";
         s = s + "Id post: <input type=\"text\" name=\"id_post\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"255\" maxlength=\"200\"><br><br>";
         s = s + "id usuario: <input type=\"text\" name=\"id_user\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
 
     public String IngresarAutomovil() {
-        String s = "<br>INGRESAR UN NUEVO VEHICULO <br><br><form action=\"/insertvehicle\" method=\"post\">";
+        String s = "<br><div align=\"center\">INGRESAR UN NUEVO VEHICULO <br><br><br><form action=\"/insertvehicle\" method=\"post\">";
         s = s + "Marca: <input type=\"text\" name=\"marca\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Modelo: <input type=\"text\" name=\"modelo\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Patente: <input type=\"text\" name=\"patente\" size=\"25\" maxlength=\"50\"><br><br>";
@@ -210,9 +210,9 @@ public class Html {
         s = s + "<br><br>Es coupe?(Auto): <input type=\"text\" name=\"isCoupe\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "CC(moto): <input type=\"text\" name=\"CC\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s +"Capacidad(camion):<input type=\"text\" name=\"Capacity\" size=\"25\" maxlength=\"50\"><br><br>";
-        s = s + "<br><br><div align=\"left\"><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
-        s = s + "<br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"";
-        s = s + "</form>";
+        s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
+        s = s + "<br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -221,7 +221,7 @@ public class Html {
         String[] tmp = autos.split(",");
         System.out.println(tmp[0]);
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
-        s = s + "VEHICULOS REGISTRADOS<br><br>";
+        s = s + "<div align=\"center\">VEHICULOS REGISTRADOS<br><br>";
         s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td> <td>ID_Due&#241o</td><td>Es Coupe?</td><td>CC</td><td>Capacidad</td> </tr>";
         for (int i = 0; i < tmp.length ; i++) {
             s = s + "<tr>";
@@ -232,16 +232,17 @@ public class Html {
             }
             s = s + "</tr>";
           
-        }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
-
-        return s;
+        } 
+        s = s + "</table>";
+       s = "<div align=\"center\">" +  s;
+       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        return  s;
     }
     
         public String getOwnAddress(String ciudades) {
         String[] tmp = ciudades.split(",");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
-        s = s + "VEHICULOS REGISTRADOS<br><br>";
+        s = s + "<div align=\"center\">VEHICULOS REGISTRADOS<br><br>";
         s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
         for (int i = 0; i < tmp.length ; i++) {
             s = s + "<tr>";
@@ -253,15 +254,16 @@ public class Html {
             s = s + "</tr>";
           
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
-
-        return s;
+       s = s + "</table>";
+       s = "<div align=\"center\">" +  s;
+       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        return  s;
     }
 
     public String getCities(String cities) {
         String[] tmp = cities.split(",");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
-        s = s + "CIUDADES REGISTRADOS<br><br>";
+        s = s + "<div align=\"center\">CIUDADES REGISTRADOS<br><br>";
         s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<tr>";
@@ -273,7 +275,7 @@ public class Html {
             s = s + "</tr>";
 //            
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -282,7 +284,7 @@ public class Html {
         String[] tmp = answers.split(",");
         System.out.println(tmp[0]);
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
-        s = s + "     RESPUESTAS<br><br>";
+        s = s + "<div align=\"center\">RESPUESTAS<br><br>";
         s = s + "<tr> <td>id_post</td><td>id_user</td> <td>Descripcion</td> </tr>";
         for (int i = 0; i < tmp.length - 1; i++) {
             s = s + "<tr>";
@@ -294,7 +296,7 @@ public class Html {
             s = s + "</tr>";
 //            
         }
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -302,7 +304,7 @@ public class Html {
     public String getAnswersByid(String answers) {
         String[] tmp = answers.split(" ");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
-        s = s + "     RESPUESTAS<br><br>";
+        s = s + "<div align=\"center\">RESPUESTAS<br><br>";
         s = s + "<tr> <td>id_post</td><td>id_user</td> <td>Descripcion</td> </tr>";
 
         s = s + "<tr>";
@@ -311,7 +313,7 @@ public class Html {
 
         }
         s = s + "</tr>";            
-        s = s + " <br><br><div align=\"left\"><form><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"></form>";
+        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -319,7 +321,7 @@ public class Html {
     public String getOwnPost(String post) {
         String[] tmp = post.split(",");
         System.out.println(tmp[0]);
-        String s = "<br>POST<br><br><form action=\"/viewpost\" method=\"post\">";
+        String s = "<br><div align=\"center\">POST<br><br><form action=\"/viewpost\" method=\"post\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
         s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
         for (int i = 0; i < tmp.length; i++) {
@@ -332,15 +334,15 @@ public class Html {
             s = s + "</tr>";         
         }
         s+="</table>";
-        s = s + " <br><br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"> ";
-        s+="</form>";
+        s = s + " <br><br>Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
     
     public String getPost(String post) {
         String[] tmp = post.split(",");
         System.out.println(tmp[0]);
-        String s = "<br>POST<br><br><form action=\"/post\" method=\"post\">";
+        String s = "<br><div align=\"center\">POST<br><br><form action=\"/post\" method=\"post\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
         s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
         for (int i = 0; i < tmp.length; i++) {
@@ -354,21 +356,21 @@ public class Html {
         
         }
         s+="</table>";
-        s = s + " <br><br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"> ";
-        s+="</form>";
+        s = s + " <br><br> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"> ";
+        s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
     
     public String contactAdmin(){
         String s ="<html>"; 
-        s+="<head> <title>CarsApp</title> </head> <body> <div align=center>";
+        s+="<div align=\"center\"><head> <title>CarsApp</title> </head> <body>";
         s+="<h1>ContactarAdministrador</h1>";
         s+="<img src=\"http://techywhack.com/wp-content/uploads/2012/11/contact-us.png\" style='background-repeat:no-repeat;' />";
         s+="<form action=\"/admincontact\"method=\"post\">";
         s+="Mensaje:<br>";
         s+="<textarea name=\"mensaje\" cols=\"50\" rows=\"5\"></textarea>";
         s+="<br> <br><input type=\"submit\"  value=\"ingresar\">";
-        s = s + "<input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\"";
+        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
         s+="</form></div></body> </html>";
         return s;
     }
@@ -388,15 +390,15 @@ public class Html {
 
         page = page + "<br><br><div align=\"center\">CARS APP<br><br>";
 
-        page += "<a href=\"http://localhost:4567/insertpost\" onclick=\"myJsFunc();\"> * Crear Post </a><br>";
-        page += "<a href=\"http://localhost:4567/ownpost\" onclick=\"myJsFunc();\">* Ver mis Posts </a><br>";
-        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehiculos </a><br>";
-        page += "<a href=\"http://localhost:4567/ownvehicles\" onclick=\"myJsFunc();\">* Ver mis Vehiculos </a><br>";
-        page += "<a href=\"http://localhost:4567/insertaddress\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br>";
-        page += "<a href=\"http://localhost:4567/ownaddress\" onclick=\"myJsFunc();\">* Ver mis Direcciones </a><br>";
-        page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos Los Posts </a><br>";
+        page += "<a href=\"http://localhost:4567/insertpost\" onclick=\"myJsFunc();\"> * Crear Post </a><br><br>";
+        page += "<a href=\"http://localhost:4567/ownpost\" onclick=\"myJsFunc();\">* Ver mis Posts </a><br><br>";
+        page += "<a href=\"http://localhost:4567/insertvehicle\" onclick=\"myJsFunc();\">* Agregar Vehiculos </a><br><br>";
+        page += "<a href=\"http://localhost:4567/ownvehicles\" onclick=\"myJsFunc();\">* Ver mis Vehiculos </a><br><br>";
+        page += "<a href=\"http://localhost:4567/insertaddress\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br><br>";
+        page += "<a href=\"http://localhost:4567/ownaddress\" onclick=\"myJsFunc();\">* Ver mis Direcciones </a><br><br>";
+        page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos Los Posts </a><br><br>";
         page += "<a href=\"http://localhost:4567/admincontact\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
-        page += "<br><br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"></form></a>";
+        page += "<br><br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
 
         return page;
     }
@@ -413,7 +415,7 @@ public class Html {
         s = s +"*<a href=\"http://localhost:4567/admincp/eraseuserquestion\" onclick=\"myJsFunc();\"> Borrar pregunta de Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/eraseuseranswer\" onclick=\"myJsFunc();\"> Borrar respuesta de Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/inbox\" onclick=\"myJsFunc();\"> Bandeja de Mensajes </a><br><br>";
-        s = s +"<a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"></form></a>";
+        s = s +"<a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
         return s;
     }
    
