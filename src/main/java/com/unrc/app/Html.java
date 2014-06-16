@@ -384,6 +384,16 @@ public class Html {
         s = s + "</form></body></html>";
         return s;
     }
+    
+      public String userControlPane() {
+        String s = "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=http://localhost:4567/webpag\">";
+        return s;
+    }
+      
+      public String adminControlPane() {
+        String s = "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=http://localhost:4567/admin\">";
+        return s;
+    }
 
     public String webpage() {
         String page = "<form action=\"Crear Vehiculo\" method=\"post\" >";

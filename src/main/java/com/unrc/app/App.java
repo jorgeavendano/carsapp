@@ -484,18 +484,31 @@ public class App {
             if (req.queryParams("email").equals("admin") && req.queryParams("contrasena").equals("1234")) {
                     connectionAdmin =true;
                     connectionUser =false;
-                    return html.admin();
+                    return html.adminControlPane();
                 }
             else{
                 if (tmp != null && tmp.get("contrasena").equals(req.queryParams("contrasena"))) {
                         connectionAdmin =false;
                         connectionUser =true;
                         currentUser = tmp;
-                        return html.webpage();
+                        return html.userControlPane();
                 }
             }
             return "El usuario o la contrasena son incorrectos";
         });
-
+        
+        get("/webpag", (req, resp) -> {
+            resp.type("text/html");
+            return html.webpage();
+        });
+        
+        get("/admin", (req, resp) -> {
+            resp.type("text/html");
+            return html.admin();
+        });
+    }
+    
+    public void web (){
+        
     }
 }
