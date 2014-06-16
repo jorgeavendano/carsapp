@@ -13,19 +13,18 @@ public class Answer extends Model{
 
     public static Answer createAnswer(User user, int question, String descripcion){
         int user2 = user.getInteger("id_user");
-//        int question2 = question.getInteger("id_question");
         Answer answer =create("id_user",user2, "description",descripcion,"id_question",question);
         answer.saveIt();
         return findByAnswer(user2,question);
     }
 
-    public static Boolean existAnswer(int id_user,int id_question){
-        return (Answer.first("id_user = ? and id_question = ? ", id_user,id_question) != null);
+    public static Boolean existAnswer(int id_question){
+        return (Answer.first("id_question = ? ", id_question) != null);
     }
    
-    public static void deleteAnswer(int id_user,int id_question){
-        if(existAnswer(id_user,id_question)){
-            Answer.delete("id_user = ? and id_question = ? ",id_user, id_question);
+    public static void deleteAnswer(int id_question){
+        if(existAnswer(id_question)){
+            Answer.delete("id_question = ? ", id_question);
         }
     }   
     

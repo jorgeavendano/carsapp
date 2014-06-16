@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class CityTest{
     @Before
     public void before(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "");
         System.out.println("UserTest setup");
         Base.openTransaction();
     }
@@ -32,12 +32,14 @@ public class CityTest{
         Address adress = new Address();
         the(user).shouldNotBe("valid");
         the(adress).shouldNotBe("valid");
-        the(adress.errors().get("provincia")).shouldBeEqual("value is missing");
-        the(adress.errors().get("ciudad")).shouldBeEqual("value is missing");
-        the(adress.errors().get("codigo_postal")).shouldBeEqual("value is missing");
-        the(adress.errors().get("direccion")).shouldBeEqual("value is missing");
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        adress.set("provincia","cordoba","ciudad","rio cuarto","codigo_postal","9","direccion","buenosaires43");
+        the(adress.errors().get("street")).shouldBeEqual("value is missing");
+        the(adress.errors().get("city")).shouldBeEqual("value is missing");
+        the(adress.errors().get("province")).shouldBeEqual("value is missing");
+        the(adress.errors().get("postal_code")).shouldBeEqual("value is missing");
+	the(adress.errors().get("num")).shouldBeEqual("value is missing");
+
+        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com","contrasena","asd123");
+        adress.set("street","mitre","city","rio cuarto","province","cordoba","postal_code","5800","num","220");
        
         // Everything is good:
         the(user).shouldBe("valid");

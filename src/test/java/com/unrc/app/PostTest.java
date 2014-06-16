@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class PostTest{
     @Before
     public void before(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "");
         System.out.println("UserTest setup");
         Base.openTransaction();
     }
@@ -35,12 +35,14 @@ public class PostTest{
         the(user).shouldNotBe("valid");
         the(post).shouldNotBe("valid");
         the(vehicle).shouldNotBe("valid");
-        the(post.errors().get("descripcion")).shouldBeEqual("value is missing");
-        the(post.errors().get("id_dueno")).shouldBeEqual("value is missing");
-        the(post.errors().get("patente_vehiculo")).shouldBeEqual("value is missing");
-        post.set("descripcion","-------","id_dueno","1","patente_vehiculo","kff911","ciudad","rio cuarto");
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        vehicle.set("marca","bmw","modelo","2014","patente","kff911","color","negro","tipo","carro","id_dueno","1");
+        the(post.errors().get("id_user")).shouldBeEqual("value is missing");
+        the(post.errors().get("id_address")).shouldBeEqual("value is missing");
+        the(post.errors().get("patent")).shouldBeEqual("value is missing");
+	the(post.errors().get("description")).shouldBeEqual("value is missing");
+
+        post.set("id_user","1","id_address","1","patent","kff911","description","si es un buen coche");
+        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com","contrasena","asd123");
+        vehicle.set("id_vehicle","1","patent","kff911","mark","ferrari","model","enzo","id_user","1","color","rojo","tipo","auto","cc","0","isCoupe","si","capacity","2");
         
 
         // Everything is good:

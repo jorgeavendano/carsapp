@@ -19,13 +19,41 @@ public class Html {
 
         return s;
     }
+    
+        public String getAllPost(String post) {
+        String s = "<br><br><div align=\"center\">Post<br><br><form action=\"/post\" method=\"post\"><br><br>";
+        s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
+        s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
+        String[] tmp = post.split(",");
+
+        for (int i = 0; i < tmp.length; i++) {
+            s = s + "<tr>";
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+        
+        }
+        s+="</table>";
+        s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
+        s = s + " <br><br> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br> ";
+        s+="<br><br>Eliminar Post (id) : <input type=\"text\" name=\"postEliminar\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"Eliminar\"><br><br> ";
+        s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/admin'\" value=\"Volver\"></form></body></html>";
+
+        return s;
+    }
 
     public String getFailLogin() {
        String s ="<br><font size=\"7\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /><div align=\"center\"> Acceso denegado <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Ingresar\"></form></body></html>";
     return s;
     }
     
-    
+    public String getMessagePag(String a,String b) {
+       String s ="<br><font size=\"4\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /><div align=\"center\">"+a+" <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567"+b+"'\" value=\"Volver\"></form></body></html>";
+    return s;
+    }
     
     public String getUserBy(String user) {
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
@@ -61,59 +89,104 @@ public class Html {
                 s = s + "<td>" + tmp[i] + "</td>";
 
             }
-            s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"coment\"></TEXTAREA> <BR><INPUT TYPE =\"submit\"><form>";
+            s+="</table><br><br>Preguntar<br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"coment\"></TEXTAREA> <BR><INPUT TYPE =\"submit\">";
             s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
             s = s + "<br>Preguntas y respuestas <br>";
-            s = s + "<tr> <td>Usuario</td> <td>Pregunta</td> <td>resuesta</td> </tr>";
+            s = s + "<tr> <td>Numero</td><td>Usuario</td> <td>Pregunta</td> <td>Resuesta</td> </tr>";
             tmp = ans.split(",");
-            for (int i = 1; i < tmp.length; i++) {
-                        String[] tm = tmp[i].split("}");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<tr>";
+                String[] tm = tmp[i].split("}");
                 for (int j = 0; j < tm.length; j++) {
                     s = s + "<td>" + tm[j] + "</td>";
 
                 }   
             }
-            s = s + "<br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
             s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></tr>";
+            s = s + "</table><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
 
             return s;
     }
-    public String getOwnPostBySearch(String post,String v,String ans) {
-        String s = "<br>POST <br><br><form action=\"/answerpost\" method=\"post\">";
-         s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
-        s = s + "<tr> <td>DUENO</td><td>PATENTE</td><td>DESCRIPCION</td> </tr>";
-        String[] tmp = post.split("}");
-        for (int i = 0; i < tmp.length; i++) {
-            s = s + "<td>" + tmp[i] + "</td>";
-
-        }
         
-        s = s+"</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
-        s = s + "VEHICULO <br>";
-        s = s + "<tr> <td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td>  <td>isCoupe</td><td>cc</td><td>carga</td><</tr>";
-        tmp = v.split(",");
-        for (int i = 1; i < tmp.length; i++) {
-            s = s + "<td>" + tmp[i] + "</td>";
-
-        }
-        s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
-        s = s + "Preguntas y respuestas <br>";
-        s = s + "<tr> <td>Usuario</td><td>num.Pregunta</td> <td>Pregunta</td> <td>resuesta</td> </tr>";
-        tmp = ans.split(",");
-        for (int i = 1; i < tmp.length; i++) {
-                    String[] tm = tmp[i].split("}");
-            for (int j = 0; j < tm.length; j++) {
-                s = s + "<td>" + tm[j] + "</td>";
+        
+    public String getPostBySearchAdmin(String desc,String post,String v,String ans) {
+            String s = "<br><div align=\"center\">POST <br><br><form action=\"/getpostbysearch\" method=\"post\">";  
+            s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
+            s = s + "<tr> <td>DESCRIPCION</td> </tr>";
+            s = s + "<td>" + desc + "</td>";
+            s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
+            s = s + "<tr> <td>DUE&#209O</td><td>PROVINCIA</td><td>CIUDAD</td><td>CODIGO POSTAL</td><td>DIRECCION</td><td>NUMERO</td> </tr>";
+            String [] tmp = post.split("}");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<td>" + tmp[i] + "</td>";
 
             }
-            s = s + "</tr>";
-        }
-        s+="responder preguntas";
-         s = s + "pregunta: <input type=\"text\" name=\"question\" size=\"12\" maxlength=\"15\">"; 
-        s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"responder\"></TEXTAREA <BR><INPUT TYPE =\"submit\" value = \"ingresar\"><form>";
-        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
-        return s;
-    }
+            
+            s = s+"</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+            s = s + "VEHICULO <br>";
+            s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td>  <td>isCoupe</td><td>CC</td><td>Capacidad</td></tr>";
+            tmp = v.split(",");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<td>" + tmp[i] + "</td>";
+
+            }
+            s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+            s = s + "<br>Preguntas y respuestas <br>";
+            s = s + "<tr> <td>Numero</td><td>Usuario</td> <td>Pregunta</td> <td>Resuesta</td> </tr>";
+            tmp = ans.split(",");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<tr>";
+                String[] tm = tmp[i].split("}");
+                for (int j = 0; j < tm.length; j++) {
+                    s = s + "<td>" + tm[j] + "</td>";
+
+                }   
+            }
+
+            s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></tr>";
+            s = s + "</table><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/post'\" value=\"Volver\">";
+
+            return s;
+    }    
+    public String getOwnPostBySearch(String desc,String post,String v,String ans) {
+            String s = "<br><div align=\"center\">POST <br><br><form action=\"/answerpost\" method=\"post\">";  
+            s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
+            s = s + "<tr> <td>DESCRIPCION</td> </tr>";
+            s = s + "<td>" + desc + "</td>";
+            s+= "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">"; 
+            s = s + "<tr> <td>DUE&#209O</td><td>PROVINCIA</td><td>CIUDAD</td><td>CODIGO POSTAL</td><td>DIRECCION</td><td>NUMERO</td> </tr>";
+            String [] tmp = post.split("}");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<td>" + tmp[i] + "</td>";
+
+            }
+            
+            s = s+"</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+            s = s + "VEHICULO <br>";
+            s = s + "<tr> <td>Patente</td><td>Marca</td> <td>Modelo</td> <td>Color</td> <td>Tipo</td>  <td>isCoupe</td><td>CC</td><td>Capacidad</td></tr>";
+            tmp = v.split(",");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<td>" + tmp[i] + "</td>";
+
+            }
+            s+="</table><br><br>Responder preguntas<br><br>Numero de Pregunta: <input type=\"text\" name=\"question\" size=\"12\" maxlength=\"15\"><br><TEXTAREA COLS=20 ROWS =10 NAME = \"responder\"></TEXTAREA> <BR><INPUT TYPE =\"submit\">";
+            s+="</table><br><table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
+            s = s + "<br>Preguntas y respuestas <br>";
+            s = s + "<tr> <td>Numero</td><td>Usuario</td> <td>Pregunta</td> <td>Resuesta</td> </tr>";
+            tmp = ans.split(",");
+            for (int i = 0; i < tmp.length; i++) {
+                s = s + "<tr>";
+                String[] tm = tmp[i].split("}");
+                for (int j = 0; j < tm.length; j++) {
+                    s = s + "<td>" + tm[j] + "</td>";
+
+                }   
+            }
+            s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></tr>";
+            s = s + "</table><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
+
+             return s;
+    }   
     public String getPostBy(String post) {
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 2px solid;\">";
         s = s + "POST<br><br>";
@@ -282,7 +355,7 @@ public class Html {
         public String getOwnAddress(String ciudades) {
         String[] tmp = ciudades.split(",");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
-        s = s + "<div align=\"center\">VEHICULOS REGISTRADOS<br><br>";
+        s = s + "<div align=\"center\">CIUDADES REGISTRADAS<br><br>";
         s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
         for (int i = 0; i < tmp.length ; i++) {
             s = s + "<tr>";
@@ -303,7 +376,7 @@ public class Html {
     public String getCities(String cities) {
         String[] tmp = cities.split(",");
         String s = "<table border=\"1\"style=\"border-collapse: separate; border: red 5px solid;\">";
-        s = s + "<div align=\"center\">CIUDADES REGISTRADOS<br><br>";
+        s = s + "<div align=\"center\">CIUDADES REGISTRADAS<br><br>";
         s = s + "<tr> <td>Provincia</td><td>ciudad</td> <td>cod_postal</td> <td>Direccion</td> <td>Numero</td></tr>";
         for (int i = 0; i < tmp.length; i++) {
             s = s + "<tr>";
@@ -360,7 +433,6 @@ public class Html {
     
     public String getPost(String post) {
         String[] tmp = post.split(",");
-        System.out.println(tmp[0]);
         String s = "<br><div align=\"center\">POST<br><br><form action=\"/post\" method=\"post\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
         s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
@@ -439,7 +511,7 @@ public class Html {
         s = s +"<br><br><div align=\"center\"> ADMIN CARSAPP<br><br>";
 
         s = s +"*<a href=\"http://localhost:4567/user\" onclick=\"myJsFunc();\"> Ver Usuarios </a><br><br>";
-        s = s +"*<a href=\"http://localhost:4567/admincp/deletepost\" onclick=\"myJsFunc();\"> Eliminar Post </a><br><br>";
+        s = s +"*<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\"> Ver Post </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/insertuser\" onclick=\"myJsFunc();\"> Crear Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/blockuser\" onclick=\"myJsFunc();\"> Bloquear Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/eraseuserquestion\" onclick=\"myJsFunc();\"> Borrar pregunta de Usuario </a><br><br>";

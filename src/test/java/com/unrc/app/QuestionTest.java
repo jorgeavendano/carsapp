@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class QuestionTest{
     @Before
     public void before(){
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_test", "root", "root");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "");
         System.out.println("UserTest setup");
         Base.openTransaction();
     }
@@ -39,14 +39,16 @@ public class QuestionTest{
         the(user).shouldNotBe("valid");
         the(post).shouldNotBe("valid");
         the(vehicle).shouldNotBe("valid");
-        the(post.errors().get("descripcion")).shouldBeEqual("value is missing");
-        the(post.errors().get("id_dueno")).shouldBeEqual("value is missing");
-        the(post.errors().get("patente_vehiculo")).shouldBeEqual("value is missing");
-        post.set("descripcion","-------","id_dueno","1","patente_vehiculo","kff911","ciudad","rio cuarto");
-        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com");
-        user2.set("first_name", "Juan", "last_name", "hulk", "email", "example2@email.com");
-        vehicle.set("marca","bmw","modelo","2014","patente","kff911","color","negro","tipo","carro","id_dueno","1");
-        question.set("descripcion","cual es el precio","id_user","2","id_post","1");
+        the(post.errors().get("id_user")).shouldBeEqual("value is missing");
+        the(post.errors().get("id_address")).shouldBeEqual("value is missing");
+        the(post.errors().get("patent")).shouldBeEqual("value is missing");
+	the(post.errors().get("description")).shouldBeEqual("value is missing");
+
+        post.set("id_user","1","id_address","1","patent","kff911","description","es un gran coche");
+        user.set("first_name", "John", "last_name", "Doe", "email", "example@email.com","contrasena","asd123");
+        user2.set("first_name", "Juan", "last_name", "hulk", "email", "example2@email.com","contrasena","asd456");
+        vehicle.set("id_vehicle","1","patent","kff911","mark","ferrari","model","enzo","id_user","1","color","rojo","tipo","auto","cc","0","isCoupe","si","capacity","2");
+        question.set("id_user","2","id_post","1","description","cual es el precio");
         
         
 

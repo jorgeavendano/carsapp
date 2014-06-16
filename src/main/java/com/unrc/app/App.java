@@ -115,6 +115,7 @@ public class App {
                 return html.getFailLogin();
         });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Post~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       
         get("/post/:id", (req, resp) -> {
             if(connectionAdmin == true || connectionUser==true){
                 resp.type("text/html");
@@ -143,7 +144,7 @@ public class App {
                     }
                     return html.getPost(vh);
                 } else 
-                    return "no hay post registrados";
+                    return  html.getMessagePag("No hay post registrados","/webpag");
                 }
              else
                 return html.getFailLogin();
@@ -159,7 +160,7 @@ public class App {
                         vh = vh + v.get(i).getString("patent") + ",";
                     }
                 }
-                else return "Necesita ingresar vehiculos para crear un post";
+                else return html.getMessagePag("Necesita ingresar vehiculos para crear un post","/webpag");
 
                 
                 List<UsersAddress> a = UsersAddress.find("id_user = ?", currentUser.get("id_user"));
@@ -173,7 +174,7 @@ public class App {
                         
                     }
                 }
-                else return "Necesita ingresar una direccion para crear un post";
+                else return  html.getMessagePag("Necesita ingresar una direccion para crear un post","/webpag");
 
                 return html.IngresarPost(currentUser,vh,ad);
 
@@ -213,11 +214,11 @@ public class App {
             if(connectionAdmin == true || connectionUser==true){
                 resp.type("text/html");
                 if (req.queryParams("coment") == null || req.queryParams("coment").equals("")) {
-                    return " No escribio ningun comentario <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+                    return  html.getMessagePag(" No escribio ningun comentario ","/post");
                 }
-                System.out.println(req.queryParams("coment"));
+
                 Question.createQuestion(currentUser,currentPost.getInteger("id_post"),req.queryParams("coment"));
-                return " se envio la pregunta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+                return  html.getMessagePag("Se envio la pregunta","/post");
              }
              else
                 return html.getFailLogin();
@@ -229,11 +230,11 @@ public class App {
             resp.type("text/html");
             Question q = Question.findFirst("id_question = ?", req.queryParams("question"));
             if (q.equals(null)||req.queryParams("responder") == null || req.queryParams("responder").equals("")) {
-                return " no se guardo correctamente la respuesta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+                return  html.getMessagePag("No se guardo correctamente la respuesta","/post");
             }
             System.out.println(req.queryParams("coment"));
             Answer.createAnswer(currentUser, q.getInteger("id_question"), req.queryParams("responder"));
-            return " se guardo la respuesta <br><div align=\"left\"><input type=\"button\" onclick=\"javascript: history.back()\" value=\"Volver\">";
+            return  html.getMessagePag("Se guardo la respuesta","/post");
         }
              else
                 return html.getFailLogin();
@@ -250,8 +251,13 @@ public class App {
                         vh = vh + post.get(i).getString("id_post") + "}" + post.get(i).getString("description") + "}" + name.getString("first_name") + "}" + post.get(i).getString("patent") + ",";
                     }
                 }
-                return html.getPost(vh);
-                        }
+                if(connectionUser==true){
+                    return html.getPost(vh);
+                }
+                else{
+                    return html.getAllPost(vh);
+                }
+            }
              else
                 return html.getFailLogin();
         });
@@ -259,67 +265,58 @@ public class App {
         post("/post", (req, resp) -> {
             if(connectionAdmin == true || connectionUser==true){
 
-                resp.type("text/html");
-                Post post = Post.findFirst("id_post = ?", req.queryParams("id_post"));
-                currentPost = post;
-                String own = "";
-                
-                String desc =  post.getString("description");
-                
-                User name = User.findFirst("id_user = ?", post.getString("id_user"));
-                own = own + name.getString("first_name")+", " + name.getString("last_name")+"}";
-                
-                Address b = Address.findFirst("id_address = ?", post.getString("id_address"));
-                own = own + b.getString("province") + "}" + b.getString("city") + "}" + b.getString("postal_code") + "}" + b.getString("street") + "}" +b.getString("num");
-                
-                
-                Vehicle tmp = Vehicle.findFirst("patent = ?", post.getString("patent"));
-                
+               if( ( (connectionAdmin==true  && !req.queryParams("postEliminar").isEmpty()) )){
+                    Post tmp = Post.findFirst("id_post = ?", req.queryParams("postEliminar"));
+                    Post.deletePost(tmp.getInteger("id_post"));
+                    return html.getMessagePag("Post Eliminado con exito","/post");
+               } 
+               
+               else{
+                    resp.type("text/html");
+                    Post post = Post.findFirst("id_post = ?", req.queryParams("id_post"));
+                    currentPost = post;
 
-                String vl = tmp.getString("patent") + "," + tmp.getString("mark") + "," + tmp.getString("model") + "," + tmp.getString("color") + "," + tmp.getString("tipo") + "," + tmp.getString("isCoupe") + "," + Integer.toString(tmp.getInteger("cc")) + "," + Integer.toString(tmp.getInteger("capacity"));
-                List<Question> ques = Question.findAll();
-                String q = "";
-                for (int i = 0; i < ques.size(); i++) {
-                    q+= User.findFirst("id_user = ?", ques.get(i).getInteger("id_user")).getString("first_name")+"}" + ques.get(i).getString("description")+"}";
-                    Answer ans = Answer.findFirst("id_question = ?", ques.get(i).get("id_question"));
-                    if( ans!=null){
-                       q+= ans.getString("description")+",";
-                    }else q+="-"+",";
-                            
-                    
-                }
-                return html.getPostBySearch(desc,own, vl,q);
-             }
-             else
-                return html.getFailLogin();
+                    String own = "";
+
+                    String desc =  post.getString("description");
+
+                    User name = User.findFirst("id_user = ?", post.getString("id_user"));
+                    own = own + name.getString("first_name")+", " + name.getString("last_name")+"}";
+
+                    Address b = Address.findFirst("id_address = ?", post.getString("id_address"));
+                    own = own + b.getString("province") + "}" + b.getString("city") + "}" + b.getString("postal_code") + "}" + b.getString("street") + "}" +b.getString("num");
+
+
+                    Vehicle tmp = Vehicle.findFirst("patent = ?", post.getString("patent"));
+                    String vl = tmp.getString("patent") + "," + tmp.getString("mark") + "," + tmp.getString("model") + "," + tmp.getString("color") + "," + tmp.getString("tipo") + "," + tmp.getString("isCoupe") + "," + Integer.toString(tmp.getInteger("cc")) + "," + Integer.toString(tmp.getInteger("capacity"));
+                    List<Question> ques = Question.find("id_post = ?", req.queryParams("id_post"));
+                    String q = "";
+                    for (int i = 0; i < ques.size(); i++) {
+                        q+= ques.get(i).get("id_question")+"}"+User.findFirst("id_user = ?", ques.get(i).getInteger("id_user")).getString("first_name") +"}" + ques.get(i).getString("description")+"}";
+                        Answer ans = Answer.findFirst("id_question = ?", ques.get(i).get("id_question"));
+                        if( ans!=null){
+                           q+= ans.getString("description")+",";
+                        }else q+="-"+",";
+
+                    }
+                    if (connectionAdmin == true){
+                        return html.getPostBySearchAdmin(desc, own, vl,q);
+                    }
+                    else{
+                        if(post.getInteger("id_user")!=currentUser.getInteger("id_user"))    
+
+                            return html.getPostBySearch(desc,own, vl,q);
+                        else
+
+                            return html.getOwnPostBySearch(desc,own, vl,q);
+                    }
+               }
+            }
+            else
+              return html.getFailLogin();
         });
+        
 
-//        post("/viewpost", (req, resp) -> {
-//            if(connectionAdmin == true || connectionUser==true){
-//                resp.type("text/html");
-//                Post post = Post.findFirst("id_post = ?", req.queryParams("id_post"));
-//                currentPost = post;
-//                String own = "";
-//                User name = User.findFirst("id_user = ?", post.getString("id_user"));
-//                own = own + name.getString("first_name") + "}"  + post.getString("patent") + "}" + post.getString("description");
-//
-//                Vehicle tmp = Vehicle.findFirst("patent = ?", post.getString("patent"));
-//
-//                String vl = tmp.get("patent") + "," + tmp.get("mark") + "," + tmp.get("model") + "," + tmp.get("color") + "," + tmp.get("tipo") + "," + tmp.get("isCoupe") + "," + tmp.get("cc") + "," + tmp.get("capacity");
-//                List<Question> ques = Question.findAll();
-//                String q = "";
-//                for (int i = 0; i < ques.size(); i++) {
-//                    q+= User.findFirst("id_user = ?", ques.get(i).getInteger("id_user")).getString("first_name")+"}"+ ques.get(i).getString("id_question")+"}" + ques.get(i).getString("description")+"}";
-//                    Answer ans = Answer.findFirst("id_question = ?", ques.get(i).get("id_question"));
-//                    if( ans!=null){
-//                       q+= ans.getString("description")+",";
-//                    }else q+="-"+",";        
-//                }
-//                return html.getOwnPostBySearch(own, vl,q);
-//                         }
-//             else
-//                return html.getFailLogin();
-//        });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Questions~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         get("/questions", (req, resp) -> {
@@ -406,7 +403,7 @@ public class App {
 
                     return html.getAutomoviles(vh);
                 }
-                return "no posee vehiculos registrados";
+                return  html.getMessagePag("No posee vehiculos registrados","/webpag");
                                      }
              else
                 return html.getFailLogin();
@@ -464,7 +461,7 @@ public class App {
 
                     return html.getOwnAddress(vh);
                 }
-                return "no posee ciudades ";
+                return  html.getMessagePag("No posee ciudades registradas","/webpag");
                                      }
              else
                 return html.getFailLogin();
@@ -559,7 +556,7 @@ public class App {
                         return html.userControlPane();
                 }
             }
-            return "El usuario o la contrasena son incorrectos";
+            return  html.getMessagePag("El usuario o la contrasena son incorrectos","/loginuser");
         });
         
         get("/webpag", (req, resp) -> {

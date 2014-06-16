@@ -1,4 +1,5 @@
 package com.unrc.app.models;
+import java.util.List;
 import org.javalite.activejdbc.Model;
 
 public class Post extends Model {
@@ -18,14 +19,19 @@ public class Post extends Model {
     }
 
     public static Boolean existPost(int id_user,String patente){
-        return (Answer.first("id_user = ? and patent = ? ", id_user,patente) != null);
+        return (Post.first("id_user = ? and patent = ? ", id_user,patente) != null);
     }
    
-    public static void deletePost(int id_post,int id_user,String patente){
-        if(existPost(id_user,patente)){
+    public static void deletePost(int id_post){
+            List<Question>  q = Question.find("id_post =?",id_post);
+            for (int i = 0; i < q.size(); i++) {
+                   Answer.deleteAnswer(q.get(i).getInteger("id_question"));
+                    
+            }
+            
             Question.delete("id_post = ?", id_post );
-            Post.delete("id_user = ? and pantet = ? ",id_user, patente);
-        }
+
+            Post.delete("id_post = ? ",id_post);
     } 
 }
 
