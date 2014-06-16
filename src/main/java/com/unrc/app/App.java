@@ -159,6 +159,8 @@ public class App {
                         vh = vh + v.get(i).getString("patent") + ",";
                     }
                 }
+                else return "Necesita ingresar vehiculos para crear un post";
+
                 
                 List<UsersAddress> a = UsersAddress.find("id_user = ?", currentUser.get("id_user"));
                 String ad = "";
@@ -171,6 +173,8 @@ public class App {
                         
                     }
                 }
+                else return "Necesita ingresar una direccion para crear un post";
+
                 return html.IngresarPost(currentUser,vh,ad);
 
              }
