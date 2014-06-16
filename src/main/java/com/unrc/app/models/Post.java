@@ -3,16 +3,16 @@ import org.javalite.activejdbc.Model;
 
 public class Post extends Model {
   static {
-      validatePresenceOf("id_user", "patent","description");
+      validatePresenceOf("id_user", "id_address","patent","description");
   }
   
     public static Post findByPost(int id_user, String patente){
 	return (findFirst("id_user = ? and patent = ?", id_user, patente));
     }
 
-    public static Post createPost(User user, String patente, String descripcion){
+    public static Post createPost(User user, int id_address,String patente, String descripcion){
         int user2 = user.getInteger("id_user");
-        Post post =create("id_user",user2, "description",descripcion,"patent",patente);
+        Post post =create("id_user",user2,"id_address",id_address,  "description",descripcion,"patent",patente);
         post.saveIt();
         return findByPost(user2,patente);
     }
