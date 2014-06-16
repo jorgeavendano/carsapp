@@ -15,7 +15,7 @@ public class Html {
         s+="<br><br></select><br><br>";
         s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
         s+="<br><br>Eliminar usuario (id) : <input type=\"text\" name=\"id_user\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"delete\"><br><br> ";
-        s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"></form></body></html>";
+        s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/admin'\" value=\"Volver\"></form></body></html>";
 
         return s;
     }
@@ -72,7 +72,7 @@ public class Html {
                 
                 s = s + "<form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></tr>";
             }
-            s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+            s = s + "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
             return s;
     }
     public String getOwnPostBySearch(String post,String v,String ans) {
@@ -108,7 +108,7 @@ public class Html {
         s+="responder preguntas";
          s = s + "pregunta: <input type=\"text\" name=\"question\" size=\"12\" maxlength=\"15\">"; 
         s+="</table><br><br><TEXTAREA COLS=20 ROWS =10 NAME = \"responder\"></TEXTAREA <BR><INPUT TYPE =\"submit\" value = \"ingresar\"><form>";
-        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
     public String getPostBy(String post) {
@@ -120,7 +120,7 @@ public class Html {
             s = s + "<td>" + tmp[i] + "</td>";
 
         }
-        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        s = s + " <br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
 
@@ -146,7 +146,7 @@ public class Html {
          s = s + "Contrasena: <input type=\"text\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\"><br><br>";
         s = s + "</form>";
-        s = s + " <br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        s = s + " <br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/admin'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -160,7 +160,7 @@ public class Html {
         s = s + "Numero: <input type=\"text\" name=\"num\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
         s = s + "</form>";
-        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        s = s + " <br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
     }
@@ -170,7 +170,7 @@ public class Html {
         s = s + "Descripcion: <input type=\"text\" name=\"descripcion\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Patente Vehiculo: <input type=\"text\" name=\"patente\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
-        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + " <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
         s = s + "<form><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html>";
 
         return s;
@@ -211,7 +211,7 @@ public class Html {
         s = s + "CC(moto): <input type=\"text\" name=\"CC\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s +"Capacidad(camion):<input type=\"text\" name=\"Capacity\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"><input type=\"reset\"  value=\"Reset\">";
-        s = s + "<br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + "<br><br><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
         s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
 
         return s;
@@ -235,7 +235,7 @@ public class Html {
         } 
         s = s + "</table>";
        s = "<div align=\"center\">" +  s;
-       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return  s;
     }
     
@@ -256,7 +256,7 @@ public class Html {
         }
        s = s + "</table>";
        s = "<div align=\"center\">" +  s;
-       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+       s = s + " <br><br><div align=\"center\"><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return  s;
     }
 
@@ -334,7 +334,7 @@ public class Html {
             s = s + "</tr>";         
         }
         s+="</table>";
-        s = s + " <br><br>Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + " <br><br>Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
         s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
@@ -356,7 +356,7 @@ public class Html {
         
         }
         s+="</table>";
-        s = s + " <br><br> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\"> ";
+        s = s + " <br><br> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\"> ";
         s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
         return s;
     }
@@ -370,7 +370,7 @@ public class Html {
         s+="Mensaje:<br>";
         s+="<textarea name=\"mensaje\" cols=\"50\" rows=\"5\"></textarea>";
         s+="<br> <br><input type=\"submit\"  value=\"ingresar\">";
-        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Volver\">";
+        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/webpag'\" value=\"Volver\">";
         s+="</form></div></body> </html>";
         return s;
     }
