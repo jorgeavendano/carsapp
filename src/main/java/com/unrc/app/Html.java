@@ -431,7 +431,7 @@ public class Html {
         return s;
     }
     
-    public String getPost(String post) {
+    public String getPostUser(String post) {
         String[] tmp = post.split(",");
         String s = "<br><div align=\"center\">POST<br><br><form action=\"/post\" method=\"post\">";
          s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
@@ -452,12 +452,33 @@ public class Html {
         return s;
     }
     
-    public String contactAdmin(){
+        public String getPostGuest(String post) {
+        String[] tmp = post.split(",");
+        String s = "<br><div align=\"center\">POST<br><br><form action=\"/post\" method=\"post\">";
+         s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
+        s = s + "<tr> <td>ID</td><td>DESCRIPCION</td><td>DUE&#209O</td> <td>PATENTE</td> </tr>";
+        for (int i = 0; i < tmp.length; i++) {
+            s = s + "<tr>";
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+        
+        }
+        s+="</table>";
+        s = s + " <br><br> Ver Post: <input type=\"text\" name=\"id_post\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/guestcp'\" value=\"Volver\"> ";
+        s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></body></html></form>";
+        return s;
+    }
+    
+    public String contactAdminUser(){
         String s ="<html>"; 
         s+="<div align=\"center\"><head> <title>CarsApp</title> </head> <body>";
         s+="<h1>ContactarAdministrador</h1>";
         s+="<img src=\"http://techywhack.com/wp-content/uploads/2012/11/contact-us.png\" style='background-repeat:no-repeat;' />";
-        s+="<form action=\"/admincontact\"method=\"post\">";
+        s+="<form action=\"/admincontactuser\"method=\"post\">";
         s+="Mensaje:<br>";
         s+="<textarea name=\"mensaje\" cols=\"50\" rows=\"5\"></textarea>";
         s+="<br> <br><input type=\"submit\"  value=\"ingresar\">";
@@ -465,25 +486,43 @@ public class Html {
         s+="</form></div></body> </html>";
         return s;
     }
+        public String contactAdminGuest(){
+        String s ="<html>"; 
+        s+="<div align=\"center\"><head> <title>CarsApp</title> </head> <body>";
+        s+="<h1>ContactarAdministrador</h1>";
+        s+="<img src=\"http://techywhack.com/wp-content/uploads/2012/11/contact-us.png\" style='background-repeat:no-repeat;' />";
+        s+="<form action=\"/admincontactguest\"method=\"post\">";
+        s+="Mensaje:<br>";
+        s+="<textarea name=\"mensaje\" cols=\"50\" rows=\"5\"></textarea>";
+        s+="<br> <br><input type=\"submit\"  value=\"ingresar\">";
+        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/guestcp'\" value=\"Volver\">";
+        s+="</form></div></body> </html>";
+        return s;
+        }
 
     public String loginUsuario() {
-        String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><font size=\"7\"><div align=\"center\"><b><u>CARSAPP </font><br><br>";
-        s = s + "<br><br>Email: <input type=\" type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
+        String s = "<br> <br><br><form action=\"/loginuser\" method=\"post\"> <br><br><font size=\"7\"><div align=\"center\"><b><u>CARSAPP </font><br><br>";   
+        s = s + "<div align=\"center\">Email: <input type=\" type=\"text\" name=\"email\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "Contrase&#241a: <input type=\"password\" name=\"contrasena\" size=\"25\" maxlength=\"50\"><br><br>";
         s = s + "<br><br><input type=\"submit\"  value=\"ingresar\"></b></u>";
-        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/registeruser\'\" value=\"Registrarse\">";
+        s = s + "<input type=\"button\" onclick=\"window.location.href='http://localhost:4567/guestcp\'\" value=\"Ingresar como Invitado\"> "; 
         s = s + "<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
         s = s + "</form></body></html>";
         return s;
     }
     
-      public String userControlPane() {
+    public String userControlPane() {
         String s = "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=http://localhost:4567/webpag\">";
         return s;
     }
       
-      public String adminControlPane() {
+    public String adminControlPane() {
         String s = "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=http://localhost:4567/admin\">";
+        return s;
+    }
+      
+    public String guestControlPane() {
+        String s = "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=http://localhost:4567/guestcp\">";
         return s;
     }
 
@@ -519,6 +558,16 @@ public class Html {
         s = s +"*<a href=\"http://localhost:4567/admincp/inbox\" onclick=\"myJsFunc();\"> Bandeja de Mensajes </a><br><br>";
         s = s +"<a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
         return s;
+    }
+    public String  guest() {
+     String s ="<form action=\"Guest Control panel\" method=\"post\">";
+
+      s = s +"<br><br><div align=\"center\"> INVITADO CARSAPP<br><br>";
+
+      s = s + "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\"> Ver todos los Posts </a><br><br>";
+      s = s + "<a href=\"http://localhost:4567/admincontactguest\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
+      s = s +"<br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
+      return s;
     }
    
 }

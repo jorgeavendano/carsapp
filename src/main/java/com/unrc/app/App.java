@@ -24,6 +24,7 @@ public class App {
     public static Post currentPost = new Post();
     public static boolean connectionAdmin = false;
     public static boolean connectionUser = false;
+    public static boolean connectionGuest = true;
 
     public static void main(String[] args) {
         System.out.println("hi!");
@@ -142,7 +143,12 @@ public class App {
                     for (int i = 0; i < post.size(); i++) {
                         vh = vh + post.get(i).getString("id_post") + "}" + post.get(i).getString("description") + "}" + currentUser.getString("first_name") + "}" + post.get(i).getString("patent") + ",";
                     }
-                    return html.getPost(vh);
+                    if(connectionUser==true){
+                    return html.getPostUser(vh);
+                    }
+                    else{
+                        return html.getPostGuest(vh);
+                    }
                 } else 
                     return  html.getMessagePag("No hay post registrados","/webpag");
                 }
@@ -241,7 +247,7 @@ public class App {
 
         });
         get("/post", (req, resp) -> {
-            if(connectionAdmin == true || connectionUser==true){
+            if(connectionAdmin == true || connectionUser==true || connectionGuest==true){
                 resp.type("text/html");
                 List<Post> post = Post.findAll();
                 String vh = "";
@@ -251,8 +257,9 @@ public class App {
                         vh = vh + post.get(i).getString("id_post") + "}" + post.get(i).getString("description") + "}" + name.getString("first_name") + "}" + post.get(i).getString("patent") + ",";
                     }
                 }
-                if(connectionUser==true){
-                    return html.getPost(vh);
+                if(connectionUser==true || connectionGuest==true){
+                    if(connectionUser==true) return html.getPostUser(vh);
+                    else return html.getPostGuest(vh);
                 }
                 else{
                     return html.getAllPost(vh);
@@ -263,7 +270,7 @@ public class App {
         });
         
         post("/post", (req, resp) -> {
-            if(connectionAdmin == true || connectionUser==true){
+            if(connectionAdmin == true || connectionUser==true || connectionGuest==true){
 
                if( ( (connectionAdmin==true  && !req.queryParams("postEliminar").isEmpty()) )){
                     Post tmp = Post.findFirst("id_post = ?", req.queryParams("postEliminar"));
@@ -507,20 +514,39 @@ public class App {
         
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Contacto Admin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         
-        get("/admincontact", (req, resp) -> {
-            if(connectionUser==true){
+        get("/admincontactuser", (req, resp) -> {
+            if(connectionUser==true || connectionGuest==true){
                 resp.type("text/html");
-                return html.contactAdmin();
+                return html.contactAdminUser();
                      }
             else
                 return html.getFailLogin();
         });
         
-        post("/admincontact", (req, resp) -> {
-            if(connectionUser==true){
+        post("/admincontactuser", (req, resp) -> {
+            if(connectionUser==true || connectionGuest==true){
                 resp.type("text/html");
                 Message.createMessage(currentUser.getInteger("id_user"), req.queryParams("mensaje"));
-                return html.contactAdmin();
+                return html.contactAdminUser();
+            }
+            else
+                return html.getFailLogin();
+        });
+        
+        get("/admincontactguest", (req, resp) -> {
+            if(connectionUser==true || connectionGuest==true){
+                resp.type("text/html");
+                return html.contactAdminGuest();
+                     }
+            else
+                return html.getFailLogin();
+        });
+        
+        post("/admincontactguest", (req, resp) -> {
+            if(connectionUser==true || connectionGuest==true){
+                resp.type("text/html");
+                Message.createMessage(currentUser.getInteger("id_user"), req.queryParams("mensaje"));
+                return html.contactAdminGuest();
             }
             else
                 return html.getFailLogin();
@@ -575,6 +601,11 @@ public class App {
             }
             else
                 return html.getFailLogin();
+        });
+        
+        get("/guestcp", (req, resp) -> {
+                resp.type("text/html");
+                return html.guest();
         });
     }
     
