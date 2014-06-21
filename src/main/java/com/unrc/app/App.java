@@ -24,7 +24,7 @@ public class App {
     public static Post currentPost = new Post();
     public static boolean connectionAdmin = false;
     public static boolean connectionUser = false;
-    public static boolean connectionGuest = true;
+    public static boolean connectionGuest = false;
 
     public static void main(String[] args) {
         System.out.println("hi!");
@@ -306,7 +306,7 @@ public class App {
                         }else q+="-"+",";
 
                     }
-                    if (connectionAdmin == true){
+                    if (connectionAdmin == true || connectionGuest ==true){
                         return html.getPostBySearchAdmin(desc, own, vl,q);
                     }
                     else{
@@ -545,7 +545,7 @@ public class App {
         post("/admincontactguest", (req, resp) -> {
             if(connectionUser==true || connectionGuest==true){
                 resp.type("text/html");
-                Message.createMessage(currentUser.getInteger("id_user"), req.queryParams("mensaje"));
+                MessageGuest.createMessageGuest(req.queryParams("mensaje"));
                 return html.contactAdminGuest();
             }
             else
@@ -553,12 +553,68 @@ public class App {
         });
         
         
+        get("/inbox",(req,resp) -> {
+            if(connectionAdmin == true){
+               resp.type("text/html");
+                List<Message> m = Message.findAll();
+                List<MessageGuest> mg = MessageGuest.findAll();
+                String message = "";
+                String messageGuest = "";
+                for (int i = 0; i < m.size(); i++) {
+                    User name = User.findFirst("id_user = ?", m.get(i).getString("id_user"));
+                    message = message + m.get(i).getString("id_message")+ "}" +  name.getString("first_name") + ",";
+                }
+                for (int i = 0; i < mg.size(); i++) {
+                    messageGuest = messageGuest + mg.get(i).getString("id_messageGuest")+ ",";
+                }
+                return html.AdminInbox(message,messageGuest);
+            }
+            return html.getFailLogin();  
+        });
+        
+        
+        post("/inbox",(req,resp) -> {
+            if(connectionAdmin == true){
+               resp.type("text/html");
+               
+               if(!req.queryParams("idmu").isEmpty()){
+                   Message messageu = Message.findFirst("id_message = ?", req.queryParams("idmu"));
+                    String mu =  messageu.getString("description");   
+                    return html.getMessage(mu);
+               }
+               if(!req.queryParams("idmi").isEmpty()){
+                   MessageGuest messagei = MessageGuest.findFirst("id_messageGuest = ?", req.queryParams("idmi"));
+                   String mi =  messagei.getString("description");
+                   return html.getMessage(mi);
+               }
+               if(!req.queryParams("eliminarmu").isEmpty()){
+                   Message messageu = Message.findFirst("id_message = ?", req.queryParams("eliminarmu"));
+                   messageu.deleteMessage(messageu.getInteger("id_message"));
+                    return html.getMessagePag("Mensaje Eliminado Con Exito","/inbox");
+               }
+               if(!req.queryParams("eliminarmi").isEmpty()){
+                   MessageGuest messagei = MessageGuest.findFirst("id_messageGuest = ?", req.queryParams("eliminarmi"));
+                   messagei.deleteMessageGuest(messagei.getInteger("id_messageGuest"));
+                   return html.getMessagePag("Mensaje Eliminado Con Exito","/inbox");
+               }
+
+               return html.getMessagePag("Error","/inbox");
+               
+               
+            }
+            else
+                return html.getFailLogin();
+
+
+        });
+        
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Login~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~        
         
         get("/loginuser", (req, resp) -> {
             resp.type("text/html");
             connectionAdmin =false;
             connectionUser =false;
+            connectionGuest =true;
             currentUser = null;
             currentPost = null;
             
@@ -572,12 +628,14 @@ public class App {
             if (req.queryParams("email").equals("admin") && req.queryParams("contrasena").equals("1234")) {
                     connectionAdmin =true;
                     connectionUser =false;
+                    connectionGuest =false;
                     return html.adminControlPane();
                 }
             else{
                 if (tmp != null && tmp.get("contrasena").equals(req.queryParams("contrasena"))) {
                         connectionAdmin =false;
                         connectionUser =true;
+                        connectionGuest =false;
                         currentUser = tmp;
                         return html.userControlPane();
                 }
@@ -609,7 +667,5 @@ public class App {
         });
     }
     
-    public void web (){
-        
-    }
+
 }

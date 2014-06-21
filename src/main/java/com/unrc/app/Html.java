@@ -44,6 +44,50 @@ public class Html {
 
         return s;
     }
+        
+        
+     public String AdminInbox(String message,String messageGuest) {
+        String s = "<br><br><div align=\"center\">Mensajes Usuarios<br><br><form action=\"/inbox\" method=\"post\">";
+        s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
+        s = s + "<tr> <td>ID Mensaje</td><td>Usuario</td> </tr>";
+        String[] tmp = message.split(",");
+
+        for (int i = 0; i < tmp.length; i++) {
+            s = s + "<tr>";
+            String[] tm = tmp[i].split("}");
+            for (int j = 0; j < tm.length; j++) {
+                s = s + "<td>" + tm[j] + "</td>";
+
+            }
+            s = s + "</tr>";
+        
+        }
+        
+       s+="</table>";
+       s = s + " <br><br> Ver Mensaje de usuario (id): <input type=\"text\" name=\"idmu\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br> ";
+       s+="Eliminar Mensaje de usuario (id) : <input type=\"text\" name=\"eliminarmu\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"Eliminar\"><br><br> ";
+
+       s+= "<br><br><div align=\"center\">Mensajes De Invitados<br><br><form action=\"/inbox\" method=\"post\">";
+       s+= "<table border=\"1\"style=\"border-collapse: separate; border: blue 2px solid;\">";
+       s = s + "<tr> <td>ID Mensaje</td><td>Usuario</td> </tr>"; 
+       String[] tmp2 = messageGuest.split(",");
+
+       for (int i = 0; i < tmp2.length; i++) {
+            s = s + "<tr>";
+            s = s + "<td>" + tmp2[i] + "</td>";
+            s = s + "<td>" + "Invitado" + "</td>";
+            s = s + "</tr>";
+        
+        }
+         s+="</table>";
+       s = s + " <br><br> Ver Mensaje de invitado (id): <input type=\"text\" name=\"idmi\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"ok\"><br><br> ";
+       s+="Eliminar Mensaje de invitado (id) : <input type=\"text\" name=\"eliminarmi\" size=\"3\" maxlength=\"50\"> <input type=\"submit\"  value=\"Eliminar\"><br><br> ";
+       s+="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
+        
+        s = s + "<div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/admin'\" value=\"Volver\"></form></body></html>";
+
+        return s;
+    }
 
     public String getFailLogin() {
        String s ="<br><font size=\"7\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /><div align=\"center\"> Acceso denegado <br><br><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/loginuser'\" value=\"Ingresar\"></form></body></html>";
@@ -107,6 +151,16 @@ public class Html {
 
             return s;
     }
+        
+        public String getMessage(String message){                        
+            String s = "<br><div align=\"center\">Mensaje<br><br><form action=\"/inbox\" method=\"post\">";  
+
+            s +="<TEXTAREA COLS=20 ROWS =10 NAME = \"coment\">"+message+"</TEXTAREA>";
+            s += "<br><br><div align=\"center\"><form><input type=\"button\" onclick=\"window.location.href='http://localhost:4567/inbox'\" value=\"Volver\"></form></body></html>";
+            s +="<html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /> ";
+
+            return s;
+        }
         
         
     public String getPostBySearchAdmin(String desc,String post,String v,String ans) {
@@ -538,7 +592,7 @@ public class Html {
         page += "<a href=\"http://localhost:4567/insertaddress\" onclick=\"myJsFunc();\">* Agregar Direccion </a><br><br>";
         page += "<a href=\"http://localhost:4567/ownaddress\" onclick=\"myJsFunc();\">* Ver mis Direcciones </a><br><br>";
         page += "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\">* Ver Todos Los Posts </a><br><br>";
-        page += "<a href=\"http://localhost:4567/admincontact\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
+        page += "<a href=\"http://localhost:4567/admincontactuser\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
         page += "<br><br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
 
         return page;
@@ -555,7 +609,7 @@ public class Html {
         s = s +"*<a href=\"http://localhost:4567/admincp/blockuser\" onclick=\"myJsFunc();\"> Bloquear Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/eraseuserquestion\" onclick=\"myJsFunc();\"> Borrar pregunta de Usuario </a><br><br>";
         s = s +"*<a href=\"http://localhost:4567/admincp/eraseuseranswer\" onclick=\"myJsFunc();\"> Borrar respuesta de Usuario </a><br><br>";
-        s = s +"*<a href=\"http://localhost:4567/admincp/inbox\" onclick=\"myJsFunc();\"> Bandeja de Mensajes </a><br><br>";
+        s = s +"*<a href=\"http://localhost:4567/inbox\" onclick=\"myJsFunc();\"> Bandeja de Mensajes </a><br><br>";
         s = s +"<a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
         return s;
     }
@@ -564,9 +618,9 @@ public class Html {
 
       s = s +"<br><br><div align=\"center\"> INVITADO CARSAPP<br><br>";
 
-      s = s + "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\"> Ver todos los Posts </a><br><br>";
+      s = s + "<a href=\"http://localhost:4567/post\" onclick=\"myJsFunc();\"> * Ver todos los Posts </a><br><br>";
       s = s + "<a href=\"http://localhost:4567/admincontactguest\" onclick=\"myJsFunc();\">* Contactar con Admin </a></form>";
-      s = s +"<br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
+      s = s +"<br><br><a href=\"http://localhost:4567/loginuser\" onclick=\"myJsFunc();\"><form><input type=\"button\" value=\"Salir\"><html><body><body background=\"http://www.mis-dibujos-favoritos.com/Images/Large/Vehiculos-Coche-Ferrari-314491.png\" style='background-repeat:no-repeat;' /></form></body></html></a>";
       return s;
     }
    

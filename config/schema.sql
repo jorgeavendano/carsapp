@@ -120,6 +120,12 @@ CREATE TABLE carsapp_development.messages(
 		description VARCHAR(3000),
 		CONSTRAINT pk_message PRIMARY KEY (id_message));
 
+DROP TABLE IF EXISTS carsapp_development.message_guests;
+CREATE TABLE carsapp_development.message_guests(
+		id_messageGuest INT(11) NOT NULL AUTO_INCREMENT,
+		description VARCHAR(3000),
+		CONSTRAINT pk_messageGuest PRIMARY KEY (id_messageGuest));
+
 -- DROP TABLE IF EXISTS carsapp_development.qualify; 
 -- CREATE TABLE carsapp_development.qualify(
 		-- id_qualify INT(11) NOT NULL AUTO_INCREMENT,

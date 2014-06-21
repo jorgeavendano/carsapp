@@ -26,7 +26,7 @@ public class Message extends Model {
   public static void deleteMessage(int id_message){
     Message message = Message.findByMessage(id_message);
     if(messageExistente(id_message))
-        message.delete();
+        message.delete("id_message = ?", id_message);
   }
     
 }
