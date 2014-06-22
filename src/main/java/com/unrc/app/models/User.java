@@ -4,6 +4,7 @@ import com.unrc.app.ElasticSearch;
 import java.util.HashMap;
 import java.util.Map;
 import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.javalite.activejdbc.Model;
 
 public class User extends Model {
@@ -18,20 +19,22 @@ public class User extends Model {
       json.put("email", this.get("email"));
       json.put("id", this.getId());
                System.out.println(this.getId()+"  ----este es el id---");
-      ElasticSearch.client().prepareIndex("users", "user")
+      ElasticSearch.client().prepareIndex("users", "user",String.valueOf(this.getId()))
                   .setSource(json)
                   .execute()
                   .actionGet();
-      prueba();
+      getUserElasticsearch();
+      
     }
-        public void prueba(){
-                
+        public void  getUserElasticsearch(){
+              System.out.println("---------------------------antesconsulta---------------------------------------------");  
             
-            GetResponse response = ElasticSearch.client().prepareGet("users", "user", "nG9juRAnSfquhuQTxbAVLQ")
+            GetResponse response = ElasticSearch.client().prepareGet("users", "user", String.valueOf(this.getId()))
         .execute()
         .actionGet();
-            System.out.println("---------------------------consulta--------------------------");
-            System.out.println(response.getIndex());
+            System.out.println("---------------------------consulta---------------------------------------------");
+            
+            System.out.println("source---"+response.getSource());
         }
     
     

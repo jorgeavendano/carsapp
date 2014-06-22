@@ -4,14 +4,25 @@ import com.unrc.app.models.*;
 
 import com.unrc.app.models.Vehicle;
 import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
+import static java.lang.Integer.parseInt;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.elasticsearch.node.*;
+import org.elasticsearch.action.get.GetResponse;
+import org.elasticsearch.action.percolate.TransportShardMultiPercolateAction.Response;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.javalite.activejdbc.Base;
 import spark.ModelAndView;
 import spark.Spark;
 import static spark.Spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
+import static org.elasticsearch.node.NodeBuilder.*;
 
 /**
  * Hello world!
@@ -29,15 +40,36 @@ public class App {
     public static void main(String[] args) {
         System.out.println("hi!");
         Html html = new Html();
+        
         Spark.before((request, response) -> {
-            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "");
-
+            Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/carsapp_development", "root", "root");
         });
         Spark.after((request, response) -> {
             Base.close();
         });
+        
+//        System.out.println("---------elastic-------------------------");
+//       GetResponse response =ElasticSearch.client().prepareGet("vehicles", "vehicle", "2")
+//                  .execute()
+//                  .actionGet();
+//            System.out.println("---------------------------consulta---------------------------------------------");
+//            
+//            System.out.println("source.valuess---"+response.getSource());
+//            System.out.println("source as string  --- "+response.getSourceAsString());
+//            ElasticSearch.client().close();
+        
+      
+//        response =ElasticSearch.client().prepareGet("vehicles", "vehicle", "2")
+//                  .execute()
+//                  .actionGet();
+//            System.out.println("---------------------------consulta---------------------------------------------");
+//            
+//            System.out.println("source.valuess---"+response.getSource());
+//            System.out.println("source as string  --- "+response.getSourceAsString());
+//            ElasticSearch.client().close();
+//        System.out.println("-----------cierroo-------------------------------------------");
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~users~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        get("/users", (request, response) -> {
+        get("/users", (request, resp) -> {
             
                 Map<String, Object> attributes = new HashMap<>();
                 List<User> users = User.findAll();
@@ -56,7 +88,9 @@ public class App {
                 String users = "";
                 for (int i = 0; i < u.size(); i++) {
                     users = users + u.get(i).getString("id_user")+ " | " + " " + u.get(i).getString("first_name") + " " + u.get(i).getString("last_name")+ " | "+ " " + u.get(i).getString("email") + ",";
+                
                 }
+                
                 return html.getAllUsers(users);
              }
             else
@@ -349,6 +383,7 @@ public class App {
                 for (int i = 0; i < v.size(); i++) {
                     vh = vh + v.get(i).getString("Patent") + "}" + v.get(i).getString("Mark") + "}" + v.get(i).getString("Model") + "}" + v.get(i).getString("Color") + "}" + v.get(i).getString("Tipo") + "}" + v.get(i).getString("id_user") + "}" + v.get(i).getString("isCoupe") + "}" + v.get(i).getString("cc") + "}" + v.get(i).getString("capacity") + ",";
                 }
+                
 
                 return html.getAutomoviles(vh);
                          }
@@ -407,6 +442,7 @@ public class App {
                     for (int i = 0; i < v.size(); i++) {
                         vh = vh + v.get(i).getString("patent") + "}" + v.get(i).getString("mark") + "}" + v.get(i).getString("model") + "}" + v.get(i).getString("color") + "}" + v.get(i).getString("tipo") + "}" + v.get(i).getString("id_user") + "}" + v.get(i).getString("isCoupe") + "}" + v.get(i).getString("cc") + "}" + v.get(i).getString("capacity") + ",";
                     }
+                    
 
                     return html.getAutomoviles(vh);
                 }
@@ -621,6 +657,8 @@ public class App {
             return html.loginUsuario();
         });
         post("/loginuser", (req, resp) -> {
+
+            
             resp.type("text/html");
             //validar usuario exitente o  admin
             User tmp = User.findFirst("email = ?", req.queryParams("email"));

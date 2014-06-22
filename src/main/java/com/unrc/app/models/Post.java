@@ -1,11 +1,28 @@
 package com.unrc.app.models;
+import com.unrc.app.ElasticSearch;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.javalite.activejdbc.Model;
 
 public class Post extends Model {
   static {
       validatePresenceOf("id_user", "id_address","patent","description");
   }
+//  @Override
+//    public void afterCreate(){
+//
+//      Map<String, Object> json = new HashMap<>();
+//      json.put("id_user", this.get("id_user"));
+//      json.put("id_address", this.get("id_address"));
+//      json.put("patent", this.get("patent"));
+//      json.put("description", this.get("description"));
+//      ElasticSearch.client().prepareIndex("posts", "post",String.valueOf(this.getId()))
+//                  .setSource(json)
+//                  .execute()
+//                  .actionGet();
+//      
+//    }
   
     public static Post findByPost(int id_user, String patente){
 	return (findFirst("id_user = ? and patent = ?", id_user, patente));

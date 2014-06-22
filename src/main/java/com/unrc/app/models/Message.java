@@ -1,5 +1,8 @@
 package com.unrc.app.models;
 
+import com.unrc.app.ElasticSearch;
+import java.util.HashMap;
+import java.util.Map;
 import org.javalite.activejdbc.Model;
 
 
@@ -7,6 +10,20 @@ public class Message extends Model {
     static {
       validatePresenceOf("id_user","description");
     }
+//    @Override
+//    public void afterCreate(){
+//
+//      Map<String, Object> json = new HashMap<>();
+//      json.put("description", this.get("description"));
+//      json.put("id_user", this.get("id_user"));
+//      
+//               System.out.println(this.getId()+"  ----este es el id---");
+//      ElasticSearch.client().prepareIndex("messages", "message",String.valueOf(this.getId()))
+//                  .setSource(json)
+//                  .execute()
+//                  .actionGet();
+//      
+//    }
     
   public static Message findByMessage(int id_message ){
     return (Message.findFirst("id_message =?", id_message ));

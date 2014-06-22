@@ -1,5 +1,8 @@
 package com.unrc.app.models;
 
+import com.unrc.app.ElasticSearch;
+import java.util.HashMap;
+import java.util.Map;
 import org.javalite.activejdbc.Model;
 
 public class Address extends Model {
@@ -7,6 +10,21 @@ public class Address extends Model {
 
       validatePresenceOf("street","city","province","postal_code","num");
   }
+//  @Override
+//    public void afterCreate(){
+//
+//      Map<String, Object> json = new HashMap<>();
+//      json.put("street", this.get("street"));
+//      json.put("city", this.get("descrcityiption"));
+//      json.put("province", this.get("province"));
+//      json.put("postal_code", this.get("postal_code"));
+//      json.put("num", this.get("num"));
+//      ElasticSearch.client().prepareIndex("addresses", "address",String.valueOf(this.getId()))
+//                  .setSource(json)
+//                  .execute()
+//                  .actionGet();
+//      
+//    }
 
   public static Address findByAddress(String direc , int num, String ciudad, String provincia, int codigoPostal){
   return (Address.findFirst("street = ? and num = ? and city = ? and province = ? and postal_code =?", direc , num, ciudad,provincia,codigoPostal));
